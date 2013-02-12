@@ -1,0 +1,188 @@
+/* 
+Author: Till Blume
+Version: 0.0.1 
+
+ 
+  Table of Contents
+==================================================
+	01 - Reset & Basics
+	02 - Global Styles
+	03 - Site Layout
+	04 - Margins & Paddings
+	05 - Header
+	06 - Content
+	07 - Sidebar
+	08 - Widgets
+	09 - Comments
+	10 - Pagination
+	11 - Footer
+	12 - Misc
+	13 - Media Queries
+*/
+
+
+/* 01 - Reset & Basics (Inspired by E. Meyers)
+================================================== */
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:700);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
+
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		font-family: 'Droid Sans', sans-serif;
+		vertical-align: baseline; }
+	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+		display: block; }
+	body {
+		line-height: 1; }
+	ol, ul {
+		list-style: none; }
+
+		
+		/* 02 - Global Styles
+================================================== */	
+	html {
+		height:100%;
+		overflow-y: scroll;
+		-webkit-overflow-y: scroll;
+		-moz-overflow-y: scroll;
+		-o-overflow-y: scroll;
+		overflow-x: hidden;
+		-webkit-overflow-x: hidden;
+		-moz-overflow-x: hidden;
+		-o-overflow-x: hidden;
+}		
+	body {
+		padding: 1;
+		color: #000000; 
+		font-family: 'Ubuntu', sans-serif;
+		font-size:  16px;
+		line-height:1.5em;
+		text-rendering:optimizeLegibility; 
+		-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+		-webkit-text-size-adjust: 100%;
+ }
+	h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+		font-weight:700;
+		word-wrap:break-word;
+		font-family: 'Droid Sans', sans-serif;
+		text-transform:uppercase;
+		color: #000000;
+}
+	h1 { 
+		font-size: 2em;
+}
+	h2 {
+		font-size: 1.6em;
+}
+	h3 {
+		font-size: 1.5em;
+}
+	h4 {
+		font-size: 1.3em;
+}
+	h5 {
+		font-size: 1.2em;
+}
+	h6 {
+		font-size: 1em;
+}
+
+	logo1s {
+		font-weight:700;
+		font-family: 'Droid Sans', sans-serif;
+		text-transform:uppercase;
+		color: #000000;
+		font-size: 1.0em;
+	}
+	
+	logo2s {
+		word-wrap:break-word;
+		font-family: 'Ubuntu', sans-serif;
+		color: #888888;
+		font-size: 1.0em;
+		text-transform:lowercase;
+		text-transform:capitalize;
+	}
+	
+	logo1b {
+		font-weight:700;
+		font-family: 'Droid Sans', sans-serif;
+		text-transform:uppercase;
+		color: #000000;
+		font-size: 1.3em;
+	}
+	
+	logo2b {
+		word-wrap:break-word;
+		font-family: 'Ubuntu', sans-serif;
+		color: #888888;
+		font-size: 1.3em;
+		text-transform:lowercase;
+		text-transform:capitalize;
+	}
+	
+	tr,td,th {
+		padding: 7;
+		
+}
+
+	a {
+		padding:.3em 0 .1em;
+		position:relative;
+		color: #000000;
+}
+#header {
+	background-color:#d0e4fe;
+	margin-top: 20px;
+	margin-right: 20px;
+	margin-left: 20px;
+	min-height:	100px;
+	min-width: 800px;
+}
+#header #logo{
+	padding: 20;
+	float:left;
+}
+#header #identity{
+	float: right;
+	margin: 10px;
+}
+#middle {
+	margin-top: 20px;
+	margin-right: 20px;
+	margin-left: 20px;
+	min-width: 800px;
+	min-height: 600px;
+}
+
+#menubar {
+	background-color:#d0e4fe;
+	width: 250px;
+	float:left;
+	min-height:600px;
+	padding: 10;
+}
+#menubar input{
+	min-width: 200px;
+	max-width: 200px;
+	text-align: left;
+}
+#content {
+	background-color:#d0e4fe;
+	margin-left: 300px;
+	min-height:	600px;
+	padding: 10;
+}
+
+#footer {
+	background-color:#d0e4fe;
+	margin-top: 20px;
+	margin-right: 20px;
+	margin-left: 20px;
+	min-height:50px;
+	min-width: 800px;
+}

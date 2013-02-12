@@ -1,0 +1,128 @@
+<html>
+	<head>
+	    <style type="text/css">
+      @import "assets/css/style.css";
+    </style>
+
+	</head>
+	
+	<body>
+	
+	<div id="header">
+		<div id="logo">
+		<logo1b>scene.</logo1b><logo2b>point</logo2b>
+		<h1>Admin area</h1>
+		</div>
+		<div id="identity">
+			<a href="http://www.google.de">logged in as google</a>
+		</div>
+	</div>
+
+	
+	<div id="middle">
+		<div id="menubar">
+			<ul>
+				<li><input id="mb-show-presi" type="button" name="show-presis" value="show all presentations"></li>
+				<li><input id="mb-show-users" type="button" name="show-users" value="show all users"> </li>
+				<li> </br> </li>
+				<li> <p>search:<br><input id="mb-keyword" name="search-txt-field" type="text" size="30" maxlength="30"></li>
+				<li><input id="mb-search-presi" type="button" name="search-presis" value="Presentations"></li>
+				<li><input id="mb-search-users" type="button" name="search-users" value="Users"></li>
+			</ul>
+		</div>
+		
+		<div id="content">
+			<table id="presentationList" border="1">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Author</th>
+						<th>last modified</th>
+						<th>bytes</th>
+						<th>link</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			
+			<table id="userList" border="1">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Member since</th>
+						<th>last login</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			
+			<div id="user">
+				<table id="user-info">
+				</table>
+				
+				<table id="user-presis">
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- TEMPLATES -->
+		<script id="test-tpl" type="text/template">
+			<a href="http://www.google.de">count: {{value}}</a>
+		</script>
+		
+		<script id="tpl-presentationList" type="text/template">
+			{{#rows}}
+				<tr>
+					<td>{{value.name}}</td>
+					<td>{{value.author}}</td>
+					<td>23.12.2012 14:56:23</td>
+					<td>{{value.size}}</td>
+					<td><a href="../?p={{id}}">link</a></td>
+				</tr>
+			{{/rows}}
+		</script>
+		
+		<script id="tpl-userList" type="text/template">
+			{{#rows}}
+				<tr">
+					<td><a href="{{id}}">{{value.name}}</a></td>
+					<td>23.12.2012 14:56:23</td>
+					<td>23.12.2012 14:56:57</td>
+				</tr>
+			{{/rows}}
+		</script>
+		
+		<script id="tpl-user" type="text/template">
+				<tr> <td>Nickname: </td> <td> {{value.name}}</td></tr>
+				<tr> <td>own presentations: </td> <td> 17</td></tr>
+				<tr> <td>reading permissions: </td> <td> 38</td></tr>
+				<tr> <td>member since: </td> <td> 23.12.2012 14:56:23</td></tr>
+				<tr> <td>last login: </td> <td> 23.12.2012 14:56:57</td></tr>
+		</script>
+		
+		<script id="tpl-user-presentationList" type="text/template">
+			{{#rows}}
+				<tr>
+					<td>{{value.name}}</td>
+					<td>{{value.author}}</td>
+					<td>23.12.2012 14:56:23</td>
+					<td>{{value.size}}</td>
+					<td><a href="../?p={{id}}">link</a></td>
+				</tr>
+			{{/rows}}
+		</script>
+	
+						
+	<!-- END TEMPLATES -->
+	    <script src="js/libs/jquery-1.8.3.js" type="text/javascript"></script>
+	    <script src="js/libs/mustache.js" type="text/javascript"></script>
+	    <script src="js/libs/underscore.js" type="text/javascript"></script>
+	    <script src="js/libs/backbone-min.js" type="text/javascript"></script>
+	    
+	    <script src="js/app.js" type="text/javascript"></script>
+	    <script src="js/view/PresentationList.js" type="text/javascript"></script>
+		<script src="js/view/UserList.js" type="text/javascript"></script>
+	</body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<project name="ScenePoint" default="push">
+    <property name="couch-host" value="localhost:5984" />
+    <property name="couch-auth" value="user:pass" />
+    <property name="couchapp-bin" location="/usr/local/bin/couchapp"></property>
+    <property name="compilation-level" value="SIMPLE_OPTIMIZATIONS"></property>
+    <property name="compilation-formatting" value="PRINT_INPUT_DELIMITER"></property>
+    
+    <target name="push" depends="updateDate">
+        <exec executable="${couchapp-bin}">
+            <arg value="push"></arg>
+            <arg value="server/couch/scenepoint"></arg>
+            <arg value="http://${couch-auth}@${couch-host}/scenepoint"></arg>
+        </exec>
+        <exec executable="${couchapp-bin}">
+            <arg value="push"></arg>
+            <arg value="server/couch/moderation"></arg>
+            <arg value="http://${couch-auth}@${couch-host}/scenepoint"></arg>
+        </exec>
+        <exec executable="${couchapp-bin}">
+            <arg value="push"></arg>
+            <arg value="server/couch/_users/"></arg>
+            <arg value="http://${couch-auth}@${couch-host}/_users"></arg>
+        </exec>
+    </target>
+    
+    <target name="updateDate" depends="compile">
+        <tstamp>
+     		<format property="time" pattern="MM/dd/yyyy hh:mm:ss aa"/>
+        </tstamp>
+		<echo file="server/couch/scenepoint/date" message="${time}"></echo>
+    </target>
+    
+    <target name="compile">
+        <java jar="tools/google-closure-compiler/compiler.jar" 
+              fork="true"
+              failonerror="true" >
+            <arg line="--language_in ECMASCRIPT5" />
+            <arg line="--warning_level DEFAULT" />
+            <arg line="--compilation_level ${compilation-level}" />
+            <arg line="--formatting ${compilation-formatting}" />
+                         
+            <arg line="--js client_src/application.js" />
+            
+            <arg line="--js client_src/modules/misc/EventGL.js" />
+            <arg line="--js client_src/modules/misc/OpenFileDialog.js" />
+            <arg line="--js client_src/modules/misc/PromptDialog.js" />
+            <arg line="--js client_src/modules/misc/Queue.js" />
+            <arg line="--js client_src/modules/misc/ChangeHistory.js" />
+            <arg line="--js client_src/modules/misc/URL.js" />
+            
+            <arg line="--js client_src/modules/resource/Resources.js" />
+            <arg line="--js client_src/modules/resource/BitmapFont.js" />
+            <arg line="--js client_src/modules/resource/CommonRes.js" />
+            
+            <arg line="--js client_src/modules/object/model/PresentationObject.js" />
+            <arg line="--js client_src/modules/object/model/ImagePlane.js" />
+            <arg line="--js client_src/modules/object/model/Import.js" />
+            <arg line="--js client_src/modules/object/model/Geometry.js" />
+            <arg line="--js client_src/modules/object/model/Text3D.js" />
+            <arg line="--js client_src/modules/object/model/VideoPlane.js" />
+            <arg line="--js client_src/modules/object/model/TextPlane.js" />
+            <arg line="--js client_src/modules/object/model/CameraPoint.js" />
+            <arg line="--js client_src/modules/object/model/Background.js" />
+            
+            <arg line="--js client_src/modules/object/viewGL/PresentationObject.js" />
+            <arg line="--js client_src/modules/object/viewGL/ImagePlane.js" />
+            <arg line="--js client_src/modules/object/viewGL/Import.js" />
+            <arg line="--js client_src/modules/object/viewGL/Geometry.js" />
+            <arg line="--js client_src/modules/object/viewGL/Text3D.js" />
+            <arg line="--js client_src/modules/object/viewGL/VideoPlane.js" />
+            <arg line="--js client_src/modules/object/viewGL/TextPlane.js" />
+            <arg line="--js client_src/modules/object/viewGL/CameraPoint.js" />
+            <arg line="--js client_src/modules/object/viewGL/Controllers.js" />
+            <arg line="--js client_src/modules/object/viewGL/Background.js" />
+            <arg line="--js client_src/modules/object/viewGL/CameraPath.js" />
+            
+            <arg line="--js client_src/modules/core/model/ObjectList.js" />
+            <arg line="--js client_src/modules/core/model/UIStatus.js" />
+            <arg line="--js client_src/modules/core/model/CameraSequence.js" />
+            <arg line="--js client_src/modules/core/model/Presentation.js" />
+            
+            <arg line="--js client_src/modules/core/view/ObjectList.js" />
+            <arg line="--js client_src/modules/core/view/AttributeList.js" />
+            <arg line="--js client_src/modules/core/view/PreferenceDialog.js" />
+            <arg line="--js client_src/modules/core/view/TextAreaDialog.js" />
+            <arg line="--js client_src/modules/core/view/LoginDialog.js" />
+            <arg line="--js client_src/modules/core/view/RegisterDialog.js" />
+            <arg line="--js client_src/modules/core/view/CaptchaDialog.js" />
+            <arg line="--js client_src/modules/core/view/OpenCloudDialog.js" />
+            <arg line="--js client_src/modules/core/view/SaveDialog.js" />
+            <arg line="--js client_src/modules/core/view/SaveCloudDialog.js" />
+            <arg line="--js client_src/modules/core/view/TextureDialog.js" />
+            <arg line="--js client_src/modules/core/view/Canvas.js" />
+            <arg line="--js client_src/modules/core/view/NavigationBar.js" />
+            <arg line="--js client_src/modules/core/view/PlayBar.js" />
+            <arg line="--js client_src/modules/core/view/Window.js" />
+            
+            <arg line="--js_output_file server/couch/scenepoint/_attachments/js/ScenePoint.js" />
+        </java>
+    </target>
+    
+</project>

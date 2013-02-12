@@ -1,0 +1,10 @@
+{
+	"project" : "Projekt",
+	"save_local" : "Lokal speichern",
+	"insert" : "Einfügen",
+	"image_plane" : "Bild",
+	"geometry" : "Geometrie",
+	"view" : "Ansicht",
+	"scene_source" : "Szenen Quelldatei",
+	"scene_3d" : "3D Szene"
+}

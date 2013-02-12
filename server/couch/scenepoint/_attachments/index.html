@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html><!--  manifest="manifest.appcache"> -->
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>ScenePoint</title>
+    
+    <style type="text/css">
+
+      @import "assets/css/cleditor/jquery.cleditor.css";
+      @import "assets/css/absolution/absolution.css";
+      @import "assets/css/farbtastic/farbtastic.css";
+      @import "assets/css/style.css";
+
+    </style>
+	
+  </head>
+  <body>
+  	
+  	<noscript>
+  		<div class="sp-errorFullpage ui-state-error ui-corner-all">
+    		<p>
+	    		<span class="ui-icon ui-icon-alert"></span>
+	    		<strong>JavaScript not available.</strong> Your browser needs to have JavaScript enabled to display this page.
+    		</p>
+    	</div>
+  	</noscript>
+  	
+  	<div id="sp-container-body">
+  	</div>
+  	
+    <script type="text/template" id="sp-body">
+    	    	
+	    <div id="sp-navbar" class="ui-helper-clearfix ui-widget ui-widget-header">
+	    </div>
+	
+	    <div id="sp-presentation" class="ui-helper-clearfix">
+	      <div id="sp-attributeList" class="ui-widget">
+	      	<table>
+           	  <caption>Attributes</caption>
+	      	</table>
+	      </div>
+	      <div id="sp-sidebarRight">
+   	    	<ul id="sp-transformSwitcher">
+				<li id="sp-transform1" title="move" class="ui-button ui-corner-left"><span class="ui-icon ui-icon-arrow-2-e-w"/></li>
+				<li id="sp-transform2" title="rotate" class="ui-button"><span class="ui-icon ui-icon-refresh"/></li>
+				<li id="sp-transform3" title="scale" class="ui-button ui-corner-right"><span class="ui-icon ui-icon-triangle-1-ne"/></li>
+			</ul>
+   			<!-- necessary to guarantee correct height -->
+  			<div style="clear: both;"></div>
+	        <div id="sp-objectList" class="ui-widget">	 
+			<div>			
+    		  <ul>
+		        <li><a id="trigger-tab-1" href="#tab-1" title="List of all objects">Objects</a></li>
+        		<li><a id="trigger-tab-2" href="#tab-2" title="List of all cameras">Cameras</a></li>
+		      </ul>
+			 </div>
+		      <div id="tab-1">
+	              <table id="sp-objectList-common">
+	              	<tbody>
+	              	</tbody>
+	              </table>
+ 	          </div>
+ 	          <div id="tab-2">
+	              <table id="sp-objectList-camera">
+    	          	<tbody>
+        	      	</tbody>
+            	  </table>
+              </div>
+	        </div>
+	      </div>
+          <canvas class="ui-widget ui-widget-content ui-corner-all"></canvas>
+	      </div>
+	    </div>
+	    
+	    <div id="sp-playBar">
+	    </div>
+
+	</script>
+    
+    <script type="text/template" id="sp-tpl-navbar">
+    	<ul>
+    		<li class="sp-logo">
+    			<img src="assets/images/logo-icon.svg"></img>
+    		</li>
+        	<li>
+        		<span id="sp-project-menu" title="projectmenu" class="sp-trigger ui-button ui-corner-top">
+        			<span>{{lang.project}}</span><span class="ui-icon ui-icon-triangle-1-s"></span>
+        		</span>
+        		<div class="sp-menu">
+	          		<ul class="ui-widget ui-widget-content ui-menu ui-corner-bottom">
+    	        		<li id="sp-navbarNew" title="new project" class="ui-menu-item"><span>New</span></li>
+    	        		<li id="sp-navbarOpen" title="open project"class="ui-menu-item"><span>Open</span></li>
+        	    		<li id="sp-navbarSave" title="save project" class="ui-menu-item"><span>Save</span></li>
+        	    		{{#config.couchdb}}
+    	        		<li id="sp-navbarOpenCloud" title="open from cloud" class="ui-menu-item"><span>Open from Cloud</span></li>
+        	    		<li id="sp-navbarSaveCloud" title="save to cloud"  class="ui-menu-item"><span>Save to Cloud</span></li>
+        	    		<li id="sp-navbarSaveCloudNew" title="save copy to cloud" class="ui-menu-item"><span>Save Copy to Cloud</span></li>
+        	    		{{/config.couchdb}}
+        	    		<li id="sp-navbarPreferences" title="edit rights" class="ui-menu-item"><span>Preferences</span></li>
+          			</ul>
+        		</div>
+        	</li>
+       		<li>
+        		<span id="sp-insert-menu" title="insertmenu" class="sp-trigger ui-button ui-corner-top">
+        			<span>{{lang.insert}}</span><span class="ui-icon ui-icon-triangle-1-s"></span>
+        		</span>
+        		<div class="sp-menu">
+	          		<ul class="ui-widget ui-widget-content ui-menu ui-corner-bottom">
+	            		<li id="sp-navbarInsertImagePlane" title="insertImageplain" class="ui-menu-item"><span>{{lang.image_plane}}</span></li>
+	            		<li id="sp-navbarInsertGeometry" title=" " class="ui-menu-item"><span>{{lang.geometry}}</span></li>
+	            		<li id="sp-navbarInsertText" title=" " class="ui-menu-item"><span>Text</span></li>
+	            		<li id="sp-navbarInsertTextPlane" title=" " class="ui-menu-item"><span>TextPlane</span></li>
+	           			<li id="sp-navbarInsertVideo" title=" " class="ui-menu-item"><span>Video</span></li>
+	            		<li id="sp-navbarInsertCameraPoint" title=" " class="ui-menu-item"><span>CameraPoint</span></li>
+<!-- 	            		<li id="sp-navbarInsertBackground" class="ui-menu-item"><span>Background</span></li> -->
+	          		</ul>
+	         </div>
+        	</li>
+        	<li>
+        		<span id="sp-view-menu" title="viewmenu" class="sp-trigger ui-button ui-corner-top">
+        			<span>{{lang.view}}</span><span class="ui-icon ui-icon-triangle-1-s"></span>
+        		</span>
+        		<div class="sp-menu">
+	          		<ul class="ui-widget ui-widget-content ui-menu ui-corner-bottom">
+	            		<li id="sp-navbarViewScene" title=" " class="ui-menu-item"><span>Editor</span></li>
+	            		<li id="sp-navbarViewPlay" title=" " class="ui-menu-item"><span>Player</span></li>
+	        	  	</ul>
+	        	</div>
+    	    </li>
+    	    <li id="sp-navbarUndo" title="undo last action" class="ui-button ui-corner-all"><a class="ui-icon ui-icon-arrowthick-1-w" /></li>
+    	    <li id="sp-navbarRedo" title="redo last action" class="ui-button ui-corner-all"><a class="ui-icon ui-icon-arrowthick-1-e" /></li>
+			<li id="sp-navbarHelp" title="activate tooltips" class="ui-button ui-corner-all"><a class="ui-icon ui-icon-help" /></li>
+			<li>
+    	    	<img id="sp-progressIndicator" src="assets/images/ajax-loader.gif" />				
+			</li>
+    	    <li>
+        	    {{#config.couchdb}}
+    	    	<span id="sp-login-info"></span>
+        	    {{/config.couchdb}}
+    	    	<!--<span id="sp-framerate"></span>-->
+    	    </li>
+   	   </ul>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-error-fullpage">
+    	<div class="sp-errorFullpage ui-state-error ui-corner-all">
+    		<p>
+	    		<span class="ui-icon ui-icon-alert"></span>
+	    		<strong>{{shortErr}}</strong> {{{longErr}}}
+    		</p>
+    	</div>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-dialog-save">
+    	<div title="{{data.title}}">
+    		<p>File ready.</p>
+    		<p>Click to download or right click "Save Link As..." to specify destination file.</p>
+    		<span style="display: inline;" class="ui-icon ui-icon-document"></span><a href="{{data.url}}" target="_blank">File</a>
+    	</div>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-dialog-saveCloud">
+    	<div title="{{data.title}}">
+    		<div class="sp-account-loading">
+    	  	  <p>Saving in progress.</p>
+    		  <div class="sp-progressIndicator"></div>
+    		</div>
+    		<div class="sp-account-done">
+    	  	  <p>Project saved.</p>
+    		</div>
+    		<div class="sp-account-error ui-state-error">
+    		</div>
+    	</div>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-dialog-textarea">
+    	<div title="{{data.title}}">
+    		<textarea>
+    		</textarea>
+    	</div>
+    </script>
+        
+    <script type="text/template" id="sp-tpl-dialog-text">
+    	<div title="{{data.title}}">
+    		<span>{{data.prompt}}</span>
+    		<input type="text" />
+    	</div>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-objectList">
+         <td>{{name}}</td>
+         <td><div><span class="ui-icon ui-icon-trash"></span></div></td>
+    </script>
+        
+    <script type="text/template" id="sp-tpl-attributeList">
+   		{{#iterator}}
+   			<tr class="sp-attr-{{type}}" 
+   				data-key="{{key}}">
+     			{{^type-group}}	
+     			<td>{{name}}</td>
+     			<td> 
+	     			{{#type-string}} <input type="text" size="10" value="{{value}}"/> {{/type-string}}
+	     			{{#type-bigString}} <span class="ui-state-default ui-corner-all ui-button ui-button-text-only">change</span> {{/type-bigString}}
+	     			{{#type-float}} <input type="text" size="10" value="{{value}}"/> {{/type-float}}
+	     			{{#type-bool}} <input type="checkbox" size="10" checked="{{value}}"/> {{/type-bool}}
+	     			{{#type-color}} 
+	     				<input type="text" size="10" title="{{name}}"/> 
+	     				<div class="sp-farbtastic"></div>
+	     			{{/type-color}}
+	     			{{#type-res-texture}} <span class="ui-state-default ui-corner-all ui-button">change</span> {{/type-res-texture}}
+	     			{{#type-enum}} 
+	     			<select>
+	     				{{#options}}
+	     				<option value="{{.}}">{{.}}</option>
+	     				{{/options}}
+	     			</select> 
+	     			{{/type-enum}}
+     			</td>
+    			{{/type-group}}
+    			{{#type-group}}
+     			<th colspan="2" class="ui-widget-header sp-trigger">{{name}}<span class="ui-icon ui-icon-triangle-1-s"></span></th>
+   	    	    {{/type-group}}
+   			</tr>
+    	    {{#type-group}}
+   			  {{> template}}
+    	    {{/type-group}}
+   		{{/iterator}}
+    </script>
+        
+    <script type="text/template" id="sp-tpl-playBar">
+    	<div class="ui-widget ui-widget-content ui-corner-top ui-helper-clearfix">
+			<ul>
+			  <li id="play-prev" class="ui-button ui-corner-all"><span class="ui-icon ui-icon-arrowthickstop-1-w"></span></li>
+			  <li id="play-next" class="ui-button ui-corner-all"><span class="ui-icon ui-icon-arrowthickstop-1-e"></span></li>
+			  <li><a href="#">Exit Presentation (Esc)</a></li>
+			</ul>
+		</div>
+    </script>
+        
+    <script type="text/template" id="sp-tpl-errorDialog">
+    	<div class="sp-errorDialog" title="{{title}}">
+    		<p>
+	    		<span class="ui-icon ui-icon-alert"></span> {{content}}
+    		</p>
+		</div>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-loginInfo">
+    	{{#user}}
+	   		Logged in as {{user}}... <a href="#">Logout</a>
+	   	{{/user}}
+    	{{^user}}
+	   		You are not logged in... <a class="sp-login" href="#">Login</a> or <a class="sp-register" href="#">Register</a>
+	   	{{/user}}
+    </script>
+    
+    <script type="text/template" id="sp-tpl-accountError">
+   		<span class="ui-icon ui-icon-alert"></span> {{error}}
+    </script>
+    
+    <script type="text/template" id="sp-tpl-dialogLogin">
+		<div class="sp-account-error ui-state-error">
+		</div>
+		<div class="sp-account-loading ui-state-highlight">
+			<span class="ui-icon ui-icon-refresh"></span> Loading...
+		</div>
+    	<form class="sp-account-form">
+   			<label for="sp-login-name">Name</label>
+   			<input type="text" name="name" id="sp-login-name" class="text ui-widget-content ui-corner-all" ></input>
+   			<label for="sp-login-password">Password</label>
+   			<input type="password" name="name" id="sp-login-password" class="text ui-widget-content ui-corner-all" ></input>
+    	</form>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-dialogRegister">
+		<div class="sp-account-error ui-state-error">
+		</div>
+		<div class="sp-account-loading ui-state-highlight">
+			<span class="ui-icon ui-icon-refresh"></span> Loading...
+		</div>
+    	<form class="sp-account-form">
+   			<label for="sp-register-name">name</label>
+   			<input type="text" name="name" id="sp-register-name" class="text ui-widget-content ui-corner-all" ></input>
+   			<label for="sp-register-mail">EMail</label>
+   			<input type="text" name="mail" id="sp-register-mail" class="text ui-widget-content ui-corner-all" ></input>
+   			<label for="sp-register-password">Password</label>
+   			<input type="password" name="name" id="sp-register-password" class="text ui-widget-content ui-corner-all" ></input>
+   			<label for="sp-register-password2">Confirm Password</label>
+   			<input type="password" name="name" id="sp-register-password2" class="text ui-widget-content ui-corner-all" ></input>
+    	</form>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-dialogCaptcha">
+    	<div>
+			<div class="sp-account-error ui-state-error">
+			</div>
+			<div class="sp-account-loading ui-state-highlight">
+				<span class="ui-icon ui-icon-refresh"></span> Pending...
+			</div>
+			<div id="recaptcha-container">
+			</div>
+    	</div>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-prefDialogPermissionRow">
+		<tr>
+			<td>
+				<input class="sp-permission-name" type="text" value="{{name}}"></input>
+			</td>
+			<td>
+				<select>
+					<option {{^write}}checked="checked"{{/write}}>ReadOnly</option>
+					<option class="sp-permission-write" {{#write}}selected{{/write}}>ReadWrite</option>
+				</select>
+			</td>
+			<td><div class="sp-table-icon-button sp-perm-remove ui-state-default ui-corner-all">
+				<span class="ui-icon ui-icon-minus"></span>
+			</div></td>
+		</tr>
+    </script>
+
+    <script type="text/template" id="sp-tpl-prefDialog">
+		<div id="sp-pref-navigation">
+			<ol>
+				<li>General</li>
+				<li>Permissions</li>
+			</ol>
+		</div>
+		<div id="sp-pref-content">
+			<div id="sp-pref-general">
+				<label for="sp-pref-general-name">Project Name</label>
+				<input type="text" id="sp-pref-general-name" value="{{name}}"></input>
+			</div>
+			<div id="sp-pref-permissions">
+				<h1>User Permissions:</h1>
+				<table class="sp-table-default">
+					<thead>
+						<tr class="ui-widget-header">
+							<th>Name</th>
+							<th>Permission</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#users}}
+						  {{> permissionRow}}
+						{{/users}}
+						<tr>
+							<td></td>
+							<td></td>
+							<td><div class="sp-table-icon-button sp-perm-add ui-state-default ui-corner-all">
+								<span class="ui-icon ui-icon-plus"></span>
+							</div></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="checkbox" id="sp-pref-permissions-worldReadable" {{#worldReadable}}checked="checked"{{/worldReadable}} />
+				<label for="sp-pref-permissions-worldReadable">World Readable</label>
+			</div>
+		</div>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-openCloudDialogPending">
+		<div class="sp-openCloud-loading ui-state-highlight">
+			<span class="ui-icon ui-icon-refresh"></span> Loading...
+		</div>
+    </script>
+
+    <script type="text/template" id="sp-tpl-openCloudDialogError">
+    	<div class="sp-openCloud-error">
+			<div class="ui-state-error">
+				<span class="ui-icon ui-icon-alert"></span> Failed to load list.
+			</div>
+			<span class="ui-state-default ui-corner-all">retry</span>
+		</div>
+    </script>
+    
+    <script type="text/template" id="sp-tpl-openCloudDialogContent">
+		<table class="sp-table-default">
+			<thead>
+				<tr class="ui-widget-header">
+					<th>Author</th>
+					<th>Name</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+	    		{{#rows}}
+					<tr data-id="{{id}}">
+						<td>{{value.author}}</td>
+						<td>{{value.name}}</td>
+						<td><div class="sp-open-project sp-table-icon-button ui-state-default ui-corner-all">
+							<span class="ui-icon ui-icon-folder-open"></span>
+						</div></td>
+					</tr>
+    			{{/rows}}
+			</tbody>
+		</table>
+		<div id="sp-openCloudContent-navigation">
+			<span class="ui-corner-all ui-state-default"><span class="ui-icon ui-icon-triangle-1-w"></span></span>
+			<span>{{start}} - {{end}}</span>
+			<span class="ui-corner-all ui-state-default"><span class="ui-icon ui-icon-triangle-1-e"></span></span>
+		</div>
+    </script>
+
+    <script type="text/template" id="sp-tpl-openCloudDialog">
+		<div id="sp-openCloud-navigation">
+			<ol>
+				<li class="ui-state-active">My Projects</li>
+				<li>Team Projects</li>
+				<li>Open Projects</li>
+			</ol>
+		</div>
+		<div id="sp-openCloud-content">
+		</div>
+    </script>
+
+    <script type="text/template" id="sp-tpl-dialogTexture">
+		<div id="sp-dialogTexture" class="ui-helper-clearfix">
+		</div>
+    </script>
+    
+    <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+  
+    <script src="assets/js/config.js" type="text/javascript"></script>
+
+    <script src="assets/js/libs/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="assets/js/libs/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
+    <script src="assets/js/libs/jquery.cleditor.min.js" type="text/javascript"></script>
+    <script src="assets/js/libs/farbtastic.min.js" type="text/javascript"></script>
+    <script src="assets/js/libs/mustache.js" type="text/javascript"></script>
+    <script src="assets/js/libs/underscore.js" type="text/javascript"></script>
+    <script src="assets/js/libs/backbone-min.js" type="text/javascript"></script>
+    <script src="assets/js/libs/Three.min.js" type="text/javascript"></script>
+    <script src="assets/js/libs/OBJLoader.js" type="text/javascript"></script>
+    <script src="assets/js/libs/BlobBuilder.min.js" type="text/javascript"></script>
+    <script src="assets/js/libs/FileSaver.min.js" type="text/javascript"></script>
+    <script src="assets/js/libs/Detector.js" type="text/javascript"></script>
+
+    <script src="assets/js/mylibs/ThreePrsntControls.js" type="text/javascript"></script>
+    <script src="assets/js/mylibs/ThreeCameraPathControls.js" type="text/javascript"></script>
+    
+    <script src="assets/fonts/helvetiker_regular.typeface.js"></script>
+
+    <script src="js/ScenePoint.js" type="text/javascript"></script>
+
+  </body>
+</html>

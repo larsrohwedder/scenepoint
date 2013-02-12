@@ -1,0 +1,493 @@
+/**********
+* GENERAL * 
+**********/
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:700);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
+
+.ui-default-state { 
+	padding: .5em 1em; 
+	cursor: pointer; 
+}
+
+.ui-list-light {
+	border-top: 1px dashed #ccc;
+}
+
+.ui-list-light:first-child {
+	border-top: none;
+}
+
+body {
+	font-family: 'Ubuntu', sans-serif;
+	
+	COLOR: #000000;
+	margin: 0;
+	padding: 0;
+/*	background-image: url(images/stripe.png);*/
+    background-color: #fff;
+    overflow: hidden;
+}
+
+#sp-container-body {
+	position: fixed;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+#sp-presentation {
+  width: 100%;
+  padding: 0px;
+}
+
+#sp-presentation canvas {
+  background: #fff;
+  outline: none;
+}
+
+#sp-presentation p {
+  margin: 0px;
+  white-space: pre;
+  overflow: auto;
+  background: #300a24;
+  color: #fff;
+}
+
+#sp-framerate {
+  padding: .5em;
+  width: 8em;
+}
+
+/*********
+* NAVBAR *
+*********/
+
+#sp-navbar {
+	font-size: .9em;
+	margin-bottom: .5em;
+}
+
+#sp-navbar-container {
+	z-index: 1;
+}
+
+#sp-navbar .sp-logo {
+	width: 3em;
+}
+
+#sp-navbar .sp-logo img {
+	width: 1.9em;
+	height: 1.9em;
+}
+
+#sp-navbar ul { 
+	z-index: 1;
+	background-image: none; 
+	padding: 0;
+	margin: 0;
+}
+
+#sp-navbar li { 
+	float: left; 
+	list-style: none; 
+}
+
+#sp-navbar li:last-child {
+	float: right;
+}
+
+#sp-navbarUndo,
+#sp-navbarRedo,
+#sp-navbarHelp {
+	padding: 0 .25em .25em .25em;
+	margin: .25em .25em .1em .25em;
+	cursor: pointer;
+}
+#sp-navbarUndo {
+	margin-left: 1em;
+}
+
+#sp-login-info {
+	position: relative;
+	top: .5em;
+	left: -0.5em;
+}
+
+#sp-progressIndicator {
+	position: relative;
+	top: .5em;
+	left: .5em;
+}
+
+#sp-navbar .sp-trigger  {
+	margin-top: .5em;
+	padding: .25em .5em; 
+	display: block; 
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+	top: 1px;
+	word-wrap:break-word;
+	font-family: 'Droid Sans', sans-serif;
+	color: #000000;
+}
+
+#sp-navbar .sp-trigger.ui-state-active {
+	border-bottom: none;
+}
+
+#sp-navbar .sp-trigger {
+	width: 6em;
+}
+
+#sp-navbar li .ui-icon  { 
+	float: right;
+	margin-left: .2em;
+	margin-top: .2em;
+}
+
+#sp-navbar .sp-menu { 
+	position: relative; 
+	z-index: 2;
+	font-size: 80%;
+}
+
+#sp-navbar .sp-menu ul { 
+	background-color: #fff;
+	position: absolute; 
+	width: 12em; 
+	padding: 0; 
+	list-style: none; 
+	margin: 0;
+	margin-top: 1px;
+	z-index: 2;
+}
+
+#sp-navbar .sp-menu li {
+	float: none;
+}
+
+#sp-navbar .sp-menu li.ui-state-disabled {
+	color: #888;
+}
+
+#sp-navbar .sp-menu li span  {
+	padding: .5em 1em;
+	text-decoration: none; 
+	display: block; 
+	cursor: pointer; 
+}
+
+/*************************
+* ATTRIBUTE, OBJECT LIST *
+*************************/
+
+#sp-attributeList {
+   	float: left;
+}
+
+#sp-attributeList input,
+#sp-attributeList .ui-button {
+	padding: .25em .5em;
+}
+
+#sp-attributeList .sp-attr-group .sp-trigger {
+	font-size: 100%;
+	margin: 0px;
+	padding: .5em;
+	cursor: pointer;
+}
+
+#sp-attributeList .sp-attr-group .ui-icon {
+	float: right;
+}
+
+#sp-attributeList .sp-farbtastic {
+	position: absolute;
+	z-index: 9999;
+}
+
+#sp-attributeList th {
+	text-align: left;
+}
+
+#sp-attributeList .sp-select,
+#sp-attributeList .sp-clear {
+	float: left;
+	padding: .25em .5em;
+}
+
+#sp-attributeList,
+#sp-objectList #tab-1,
+#sp-objectList #tab-2 {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#sp-attributeList,
+#sp-objectList  {
+  width: 15em;
+  font-size: .8em;
+ /* font-family: 'Droid Sans', sans-serif; */
+}
+
+#sp-attributeList caption {
+  width: 80%;
+  text-align: left;
+  padding: .5em;
+  font-size: 1.5em;
+  color: #800;
+}
+
+#sp-attributeList table,
+#sp-objectList table {
+  border-collapse: collapse;
+  /*font-family: 'Ubuntu', sans-serif;*/
+}
+
+#sp-objectList .ui-state-highlight td {
+  border: 1px solid #000;
+}
+#sp-objectList .ui-state-highlight:last-child td {
+  border-bottom: 1px solid #000;
+}
+
+#sp-attributeList td,
+#sp-objectList td {
+  z-index: 1;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: .5em;
+}
+
+#sp-attributeList tr:last-child td,
+#sp-objectList tr:last-child td {
+  border-bottom: 1px solid #ccc;
+}
+
+#sp-objectList td {
+  cursor: pointer;
+}
+
+#sp-attributeList td:first-child,
+#sp-objectList td:first-child {
+  width: 100%;
+  overflow: hidden;
+}
+
+#sp-transformSwitcher {
+  float: right;
+  padding: 1em 1em 1em 0;
+}
+
+#sp-transformSwitcher {
+  list-style: none;
+}
+
+#sp-transformSwitcher li {
+  float: left;
+  padding: .5em 1em;
+  cursor: pointer;
+}
+
+#sp-sidebarRight {
+  float: right;
+}
+
+#sp-objectList #tab-1,
+#sp-objectList #tab-2 {
+  padding: .5em;
+}
+
+/***********
+* PLAY BAR *
+***********/
+
+#sp-playBar {
+	position: fixed;
+	width: 100%;
+	height: 100px;
+	bottom: 0px;
+}
+#sp-playBar div {
+	width: 23em;
+	background: #FFFFFF;
+}
+#sp-playBar ul {
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+#sp-playBar li {
+	float: left;
+	list-style: none;
+	padding: .5em 1em;
+	margin: .5em;
+	cursor: pointer;
+}
+
+/**********************************
+* PREFERENCE AND OPENCLOUD DIALOG *
+**********************************/
+
+#sp-openCloud-navigation,
+#sp-pref-navigation {
+	position: absolute;
+	height: 90%;
+	width: 10em;
+	border-right: 1px solid #aaa;
+	overflow: auto;
+}
+
+#sp-openCloud-navigation ol,
+#sp-pref-navigation ol {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#sp-openCloud-navigation li,
+#sp-pref-navigation li {
+	padding: .5em;
+	margin: 1px;
+	cursor: pointer;
+}
+
+#sp-openCloud-navigation li.ui-state-hover,
+#sp-pref-navigation li.ui-state-hover,
+#sp-openCloud-navigation li.ui-state-active,
+#sp-pref-navigation li.ui-state-active {
+	margin: 0;
+}
+
+#sp-openCloud-content,
+#sp-pref-content {
+	height: 90%;
+	padding: 20px;
+	margin-left: 10em;
+	overflow: auto;
+}
+
+#sp-openCloud-content h1,
+#sp-pref-permissions h1 {
+	font-size: 1.2em;
+}
+
+#sp-pref-general label, 
+#sp-pref-general input {
+	clear: both;
+}
+
+#sp-openCloudContent-navigation span {
+	float: left;
+	margin: .25em;
+	cursor: pointer;
+}
+
+#sp-openCloudContent-navigation span span {
+	float: none;
+}
+
+#sp-openCloud-content .sp-openCloud-error .ui-corner-all {
+	padding: .25em;
+	cursor: pointer;
+}
+
+.sp-openCloud-error .ui-state-error,
+.sp-openCloud-loading {
+	padding: .5em;
+	margin-bottom: .5em;
+}
+
+.sp-openCloud-error .ui-icon,
+.sp-openCloud-loading .ui-icon {
+	float: left;
+	margin-right: .5em;
+}
+
+/*******
+* MISC *
+*******/
+
+.sp-errorFullpage {
+	padding: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5em;
+	width: 50%;
+}
+
+.sp-errorFullpage .ui-icon {
+	float: left;
+	margin-right: .5em;
+}
+
+#sp-dialogTexture img {
+	width: 128px;
+}
+
+#sp-dialogTexture span {
+	float: left;
+	cursor: pointer;
+	padding: 32px;
+	width: 160px;
+	height: 160px;
+}
+
+.sp-errorDialog span {
+	margin: .5em;
+	float: left;
+}
+
+.sp-account-error,
+.sp-account-loading {
+	padding: .5em;
+}
+
+.sp-account-error .ui-icon,
+.sp-account-loading .ui-icon {
+	float: left;
+	margin-right: .5em;
+}
+
+.sp-account-form input {
+	margin-bottom: 1em;
+}
+
+.sp-account-form input,
+.sp-account-form label {
+	display: block;
+}
+
+.sp-table-default { 
+	margin: 1em 0; 
+	border-collapse: collapse; 
+	width: 100%; 
+}
+
+.sp-table-default td, 
+.sp-table-default th { 
+	border: 1px solid #aaa; 
+	padding: .25em .5em; 
+	text-align: left; 
+}
+
+.sp-table-icon-button {
+	padding: 4px;
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+}
+
+
+ /* tooltip styling. by default the element to be styled is .tooltip  */
+ .ui-tooltip {
+    display:none;
+    font-size:12px;
+	max-width: 155px;
+	/*max-height: 14px;*/
+	padding: 2px;
+	z-index: 99999;
+  }

@@ -1,0 +1,97 @@
+[{
+	"_comment" : "allow full access to _session api",
+	"path" : "^/session($|\\?.*)",
+	"method" : "*",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/_session$1"
+	}
+},{
+	"_comment" : "_users api validated by couchdb",
+	"path" : "^/users/(.*)",
+	"method" : "GET",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/_users/$1"
+	}
+}, {
+	"_comment" : "allow full access to _uuids api",
+	"path" : "^/uuids($|\\?.*)",
+	"method" : "*",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/_uuids$1"
+	}
+}, {
+	"_comment" : "verify user with reCaptcha before letting him register",
+	"path" : "^/register($|\\?.*)",
+	"method" : "PUT",
+	"handler" : "register"
+}, {
+	"_comment" : "redirect access to db to validate function",
+	"path" : "^/db/([^_].*)",
+	"method" : "GET",
+	"handler" : "doc_read"
+}, {
+	"_comment" : "update and delete is controlled by validate_doc_update, can be passed directly",
+	"path" : "^/db/([^_].*)",
+	"method" : "PUT",
+	"timestamp" : "/scenepoint/_design/app/_update/doc_update_handler/$1",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/scenepoint/$1"
+	}
+}, {
+	"_comment" : "update and delete is controlled by validate_doc_update, can be passed directly",
+	"path" : "^/db/([^_].*)",
+	"method" : "DELETE",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/scenepoint/$1"
+	}
+}, {
+	"_comment" : "browsing cloud presentations",
+	"path" : "^/browse($|\\?.*)",
+	"method" : "GET",
+	"handler" : "browse"
+}, {
+	"_comment" : "manifest for Offline Application Caching",
+	"path" : "^/manifest.appcache($|\\?.*)",
+	"method" : "GET",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/scenepoint/_design/app/_show/app_manifest/_design/app"
+	}
+},{
+	"_comment" : "moderation area, empty path directed to index.html",
+	"path" : "^/moderation/($|\\?.*)",
+	"method" : "GET",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/scenepoint/_design/moderation/index.html"
+	}
+},{
+	"_comment" : "moderation area",
+	"path" : "^/moderation/(.*)$",
+	"method" : "GET",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/scenepoint/_design/moderation/$1"
+	}
+},{
+	"_comment" : "empty path directed to index.html",
+	"path" : "^/?($|\\?.*)",
+	"method" : "GET",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/scenepoint/_design/app/index.html"
+	}
+}, {
+	"_comment" : "default to _attachments of the design document",
+	"path" : "^/(.*)$",
+	"method" : "GET",
+	"handler" : "proxy",
+	"request" : {
+		"path" : "/scenepoint/_design/app/$1"
+	}
+}]

@@ -1,0 +1,6 @@
+{
+	"nodePort" : "8080h",
+	"designPath" : "/scenepoint/_design/app",
+	"auth" : null,
+	"couchPort" : 5984
+}
