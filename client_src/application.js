@@ -14,7 +14,7 @@ var sp = {
       if (modules[name]) {
         return modules[name];
       }
-
+	//testetstest
       // Create a module and save it under this name
       if(name == "core") {
     	  return modules[name] = {
